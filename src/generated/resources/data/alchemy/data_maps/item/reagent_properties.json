@@ -1,13 +1,24 @@
 {
   "values": {
+    "minecraft:lilac": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_vitality"
+      ]
+    },
+    "minecraft:lily_of_the_valley": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:fortify"
+      ]
+    },
     "minecraft:pink_tulip": {
       "dilute": 1,
       "temperature": 1,
       "traits": [
-        {
-          "color": -1,
-          "name": "Defense"
-        }
+        "alchemy:fortify"
       ]
     }
   }

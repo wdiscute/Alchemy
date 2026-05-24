@@ -17,6 +17,7 @@ public interface AlchemyDataMaps
             Alchemy.rl("reagent_properties"), Registries.ITEM, ReagentProperties.CODEC)
             .synced(ReagentProperties.CODEC, true).build();
 
+
     DataMapType<MobEffect, List<EffectRequirement>> POTION_EFFECT_REQUIREMENTS = DataMapType.builder(
                     Alchemy.rl("potion_effect_requirements"), Registries.MOB_EFFECT, EffectRequirement.LIST_CODEC)
             .synced(EffectRequirement.LIST_CODEC, true).build();
@@ -25,5 +26,4 @@ public interface AlchemyDataMaps
     {
         return stack.typeHolder().getData(REAGENT_PROPERTIES);
     }
-
 }

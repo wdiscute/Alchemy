@@ -33,10 +33,8 @@ public class DGAlchemyTraitPropertiesProvider extends DatapackBuiltinEntriesProv
         );
     }
 
-    public static void register(String name, TraitProperties tp)
+    public static void register(String name, TraitProperties tp, ResourceKey<TraitProperties> key)
     {
-        DGAlchemyTraits.ALCHEMY_TRAITS.add(tp);
-        ResourceKey<TraitProperties> key = ResourceKey.create(Alchemy.TRAIT_REGISTRY_KEY, Alchemy.rl(name));
         PROPERTIES.add(Pair.of(key, tp));
         String namespace = key.identifier().getNamespace();
         if (!namespace.equals("minecraft") && !namespace.equals("starcatcher"))

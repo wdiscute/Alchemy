@@ -1,0 +1,10 @@
+{
+  "values": {
+    "minecraft:regeneration": [
+      {
+        "group": "vitality",
+        "level": 1
+      }
+    ]
+  }
+}

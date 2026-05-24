@@ -1,10 +1,13 @@
 package net.mcexpanded.alchemy.datagen;
 
 import net.mcexpanded.alchemy.Alchemy;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
+import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = Alchemy.MOD_ID)
 public class AlchemyDataGenerators
@@ -18,11 +21,11 @@ public class AlchemyDataGenerators
                         .add(Alchemy.TRAIT_REGISTRY_KEY, DGAlchemyTraitPropertiesProvider::bootstrap)
         );
 
-        //data maps
-        event.createProvider(DGAlchemyDataMapsProvider::new);
+        //trait properties
+        DGAlchemyTraitPropertiesProvider provider = event.createProvider(DGAlchemyTraitPropertiesProvider::new);
 
-        //fish properties
-        event.createProvider(DGAlchemyTraitPropertiesProvider::new);
+        //data maps
+        event.addProvider(new DGAlchemyDataMapsProvider(event.getGenerator().getPackOutput(), provider.getRegistryProvider()));
 
 
 

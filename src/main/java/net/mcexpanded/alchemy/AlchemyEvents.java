@@ -5,6 +5,8 @@ import net.mcexpanded.alchemy.alchemy.TraitProperties;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,11 +23,7 @@ public class AlchemyEvents
     public static void addDatapackRegistry(DataPackRegistryEvent.NewRegistry event)
     {
         event.dataPackRegistry(
-                Alchemy.TRAIT_REGISTRY_KEY, TraitProperties.CODEC, TraitProperties.CODEC,
-                builder -> builder.maxId(512));
-
-        event.dataPackRegistry(
-                Alchemy.TRAIT_REGISTRY_KEY, TraitProperties.CODEC, TraitProperties.CODEC,
+                Alchemy.TRAIT_REGISTRY_KEY, TraitProperties.DIRECT_CODEC, TraitProperties.DIRECT_CODEC,
                 builder -> builder.maxId(512));
     }
 
@@ -40,16 +38,23 @@ public class AlchemyEvents
     public static void tooltipEvent(ItemTooltipEvent event)
     {
         ItemStack stack = event.getItemStack();
+        if(event.getEntity() == null) return;
 
         ReagentProperties reagentProperties = AlchemyDataMaps.get(stack);
         if (reagentProperties != null)
         {
             List<Component> toolTip = event.getToolTip();
 
-            reagentProperties.traits().forEach(o ->
-                    toolTip.add(1, Component.literal(" -" + o.value().effect()).withStyle(ChatFormatting.DARK_GRAY)));
 
-            toolTip.add(1 , Component.literal("Alchemy Traits").withStyle(ChatFormatting.GRAY));
+            reagentProperties.traits().forEach(trait ->
+                    {
+                        Identifier key = event.getEntity().level().registryAccess().lookupOrThrow(Alchemy.TRAIT_REGISTRY_KEY).getKey(trait.value());
+                        MutableComponent name = Component.translatable("alchemy.trait." + key.toLanguageKey());
+                        toolTip.add(1, Component.literal(" -").append(name).withStyle(ChatFormatting.DARK_GRAY));
+                    }
+            );
+
+            toolTip.add(1, Component.literal("Alchemy Traits").withStyle(ChatFormatting.GRAY));
         }
     }
 }
