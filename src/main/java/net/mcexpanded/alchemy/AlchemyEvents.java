@@ -3,6 +3,8 @@ package net.mcexpanded.alchemy;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.mcexpanded.alchemy.alchemy.TraitProperties;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
+import net.mcexpanded.alchemy.registry.AlchemyMenuTypes;
+import net.mcexpanded.alchemy.station.StationScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -10,6 +12,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -45,7 +48,6 @@ public class AlchemyEvents
         {
             List<Component> toolTip = event.getToolTip();
 
-
             reagentProperties.traits().forEach(trait ->
                     {
                         Identifier key = event.getEntity().level().registryAccess().lookupOrThrow(Alchemy.TRAIT_REGISTRY_KEY).getKey(trait.value());
@@ -56,5 +58,11 @@ public class AlchemyEvents
 
             toolTip.add(1, Component.literal("Alchemy Traits").withStyle(ChatFormatting.GRAY));
         }
+    }
+
+    @SubscribeEvent
+    public static void registerScreens(RegisterMenuScreensEvent event)
+    {
+        event.register(AlchemyMenuTypes.STATION.get(), StationScreen::new);
     }
 }

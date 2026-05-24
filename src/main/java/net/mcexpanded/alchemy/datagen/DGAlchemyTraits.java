@@ -17,7 +17,6 @@ public interface DGAlchemyTraits
             new TraitProperties("vitality", 2, 0xffffffff)
     );
 
-
     ResourceKey<TraitProperties> FORTIFY = register("fortify",
             new TraitProperties("fortify", 1, 0xffffffff)
     );

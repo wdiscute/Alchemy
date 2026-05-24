@@ -5,6 +5,12 @@
         "group": "vitality",
         "level": 1
       }
+    ],
+    "minecraft:resistance": [
+      {
+        "group": "fortify",
+        "level": 1
+      }
     ]
   }
 }

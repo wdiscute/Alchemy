@@ -3,6 +3,7 @@ package net.mcexpanded.alchemy.registry;
 import net.mcexpanded.alchemy.Alchemy;
 import net.mcexpanded.alchemy.alchemy.EffectRequirement;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
@@ -25,5 +26,10 @@ public interface AlchemyDataMaps
     static ReagentProperties get(ItemStack stack)
     {
         return stack.typeHolder().getData(REAGENT_PROPERTIES);
+    }
+
+    static List<EffectRequirement> get(Holder<MobEffect> mobEffect)
+    {
+        return mobEffect.getData(POTION_EFFECT_REQUIREMENTS);
     }
 }

@@ -60,6 +60,7 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
 
         //vitality?
         requirements.add(MobEffects.REGENERATION, List.of(new EffectRequirement("vitality", 1)), false);
+        requirements.add(MobEffects.RESISTANCE, List.of(new EffectRequirement("fortify", 1)), false);
 
 
     }
