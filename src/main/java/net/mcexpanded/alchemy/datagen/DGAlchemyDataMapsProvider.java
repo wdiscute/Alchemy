@@ -1,0 +1,48 @@
+package net.mcexpanded.alchemy.datagen;
+
+import net.mcexpanded.alchemy.alchemy.EffectRequirement;
+import net.mcexpanded.alchemy.alchemy.ReagentProperties;
+import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.data.DataMapProvider;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+public class DGAlchemyDataMapsProvider extends DataMapProvider
+{
+    protected DGAlchemyDataMapsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider)
+    {
+        super(packOutput, lookupProvider);
+    }
+
+    @Override
+    protected void gather(HolderLookup.Provider provider)
+    {
+        var reagents = this.builder(AlchemyDataMaps.REAGENT_PROPERTIES);
+
+        reagents.add(Items.PINK_TULIP.builtInRegistryHolder(),
+                new ReagentProperties(
+                        1, 1,
+                        DGAlchemyTraits.MINOR_VITALITY
+                ), false);
+
+        reagents.add(Items.PINK_TULIP.builtInRegistryHolder(),
+                new ReagentProperties(
+                        1, 1,
+                        DGAlchemyTraits.FORTIFY
+                ), false);
+
+
+
+        var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_REQUIREMENTS);
+
+        //vitality?
+        requirements.add(MobEffects.REGENERATION, List.of(new EffectRequirement("vitality", 1)), false);
+
+
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "values": {
+    "minecraft:pink_tulip": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        {
+          "color": -1,
+          "name": "Defense"
+        }
+      ]
+    }
+  }
+}
