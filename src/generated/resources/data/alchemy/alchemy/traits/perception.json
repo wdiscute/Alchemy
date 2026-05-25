@@ -1,10 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "alchemy"
-    }
-  ],
   "color": -1,
   "effect_group": "perception",
   "level": 1

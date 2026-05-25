@@ -1,6 +1,33 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "alchemy:item/conical_flask"
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "alchemy:item/conical_flask_small"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "alchemy:item/conical_flask"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "alchemy:item/conical_flask_large"
+        },
+        "threshold": 3.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "alchemy:item/conical_flask"
+    },
+    "property": "alchemy:potion_type"
   }
 }

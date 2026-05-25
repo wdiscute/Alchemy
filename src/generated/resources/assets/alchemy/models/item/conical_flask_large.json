@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "alchemy:item/round_flask"
+    "layer0": "alchemy:item/conical_flask_large"
   }
 }

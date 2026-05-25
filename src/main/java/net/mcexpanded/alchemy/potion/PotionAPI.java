@@ -7,6 +7,7 @@ import net.mcexpanded.alchemy.registry.AlchemyDataComponents;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -49,8 +50,14 @@ public class PotionAPI
         if(matchingEffects.isEmpty()) return null;
 
         //map available effects to potion data
-        List<PotionData> potionData = matchingEffects.stream().map(
-                e -> new PotionData(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(e), 100, 1)).toList();
+        List<PotionData> potionData = new ArrayList<>(matchingEffects.stream().map(
+                e -> new PotionData(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(e), 100, 1)).toList());
+
+        //testing
+        potionData.add(new PotionData(MobEffects.HASTE, 1, 1));
+        potionData.add(new PotionData(MobEffects.SLOW_FALLING, 1, 1));
+
+
 
         ItemStack toReturn = flask.copyWithCount(1);
         toReturn.set(AlchemyDataComponents.POTION_DATA, potionData);

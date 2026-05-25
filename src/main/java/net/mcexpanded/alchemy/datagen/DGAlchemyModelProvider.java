@@ -1,10 +1,13 @@
 package net.mcexpanded.alchemy.datagen;
 
 import net.mcexpanded.alchemy.Alchemy;
+import net.mcexpanded.alchemy.potion.PotionTypeItemProperty;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.select.Charge;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -13,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static net.mcexpanded.alchemy.registry.AlchemyItems.*;
@@ -52,14 +56,36 @@ public class DGAlchemyModelProvider extends ModelProvider
         this.itemModels = itemModels;
 
         //non bucket fishes
-        simpleItem(ROUND_FLASK);
-        simpleItem(CONICAL_FLASK);
-        simpleItem(CUBIC_FLASK);
+        generatePotion(ROUND_FLASK.get());
+        generatePotion(CONICAL_FLASK.get());
+        generatePotion(CUBIC_FLASK.get());
 
         simpleItem(LIZARD_TAIL);
         simpleItem(FROG_LEG);
+    }
 
+    public static final ModelTemplate CROSSBOW = createItem("crossbow", TextureSlot.LAYER0);
 
+    public static ModelTemplate createItem(String id, TextureSlot... slots)
+    {
+        return new ModelTemplate(Optional.of(ModelLocationUtils.decorateItemModelLocation(id)), Optional.empty(), slots);
+    }
+
+    public void generatePotion(Item item)
+    {
+        ItemModel.Unbaked small = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_small", ModelTemplates.FLAT_HANDHELD_ITEM));
+        ItemModel.Unbaked normal = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "", ModelTemplates.FLAT_HANDHELD_ITEM));
+        ItemModel.Unbaked large = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_large", ModelTemplates.FLAT_HANDHELD_ITEM));
+        this.itemModels.itemModelOutput
+                .accept(
+                        item,
+                        ItemModelUtils.rangeSelect(
+                                new PotionTypeItemProperty(), normal,
+                                ItemModelUtils.override(small, 1f),
+                                ItemModelUtils.override(normal, 2f),
+                                ItemModelUtils.override(large, 3F)
+                        )
+                );
     }
 
     private void simpleItem(DeferredItem<? extends Item> item)

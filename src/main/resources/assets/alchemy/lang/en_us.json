@@ -93,5 +93,14 @@
   "alchemy.trait.alchemy.obscurity" : "Obscurity",
 
   "alchemy.group.stickiness" : "Stickiness",
-  "alchemy.trait.alchemy.stickiness" : "Stickiness"
+  "alchemy.trait.alchemy.stickiness" : "Stickiness",
+
+
+  "tooltip.alchemy.potion" : "Potion of %s",
+
+  "item.alchemy.round_flask" : "Round Flask",
+  "item.alchemy.conical_flask" : "Conical Flask",
+  "item.alchemy.cubic_flask" : "Cubic Flask"
+
+
 }
