@@ -20,8 +20,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Mod(Alchemy.MOD_ID)
@@ -47,10 +47,10 @@ public class Alchemy
     }
 
 
-    public static ItemStack craftPotion(ItemStack reagent, ItemStack reagent2, ItemStack flask)
+    public static ItemStack craftPotion(ItemStack reagent, ItemStack reagent2, ItemStack reagent3, ItemStack flask)
     {
         //get list of available traits + level from reagents
-        List<Pair<String, Integer>> availableTraits = getAvailableTraits(reagent, reagent2);
+        List<Pair<String, Integer>> availableTraits = getAvailableTraits(reagent, reagent2, reagent3);
 
         List<MobEffect> matchingEffects = new ArrayList<>();
 
@@ -77,40 +77,77 @@ public class Alchemy
         return flask;
     }
 
-    public static List<Pair<String, Integer>> getAvailableTraits(ItemStack reagent, ItemStack reagent2)
+    public static List<Pair<String, Integer>> getAvailableTraits(ItemStack reagent, ItemStack reagent2, ItemStack reagent3)
     {
         //get traits, return if either item doesn't have traits
         ReagentProperties reagentProperties = AlchemyDataMaps.get(reagent);
         if (reagentProperties == null) return List.of();
+
         ReagentProperties reagentProperties2 = AlchemyDataMaps.get(reagent2);
         if (reagentProperties2 == null) return List.of();
-        return getAvailableTraits(reagentProperties, reagentProperties2);
 
+        ReagentProperties reagentProperties3 = AlchemyDataMaps.get(reagent3);
+        if (reagentProperties3 == null) return List.of();
+
+        return getAvailableTraits(reagentProperties, reagentProperties2, reagentProperties3);
     }
 
-    public static List<Pair<String, Integer>> getAvailableTraits(ReagentProperties reagent, ReagentProperties reagent2)
+    public static List<Pair<String, Integer>> getAvailableTraits(ReagentProperties reagent, ReagentProperties reagent2, ReagentProperties reagent3)
     {
-        List<TraitProperties> traits = reagent.traits().stream().map(Holder::value).toList();
-        List<TraitProperties> traits2 = reagent2.traits().stream().map(Holder::value).toList();
+        //convert reagent traits into a map
+        Map<String, Integer> traits1 = new HashMap<>();
+        reagent.traits().forEach(o -> traits1.put(o.value().group(), o.value().level()));
 
-        List<Pair<String, Integer>> list = new ArrayList<>();
+        Map<String, Integer> traits2 = new HashMap<>();
+        reagent.traits().forEach(o -> traits2.put(o.value().group(), o.value().level()));
+
+        Map<String, Integer> traits3 = new HashMap<>();
+        reagent.traits().forEach(o -> traits3.put(o.value().group(), o.value().level()));
 
 
-        for (TraitProperties trait1 : traits)
+        Map<String, Integer> availableTraits = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : traits1.entrySet())
         {
-            for (TraitProperties trait2 : traits2)
+            String group = entry.getKey();
+            //if trait is on all 3 reagents
+            if (traits2.containsKey(group) && traits3.containsKey(group))
             {
-                //if found matching trait
-                if (trait1.group().equals(trait2.group()))
-                {
-                    //add trait group to list with lowest level of trait
-                    list.add(Pair.of(trait1.group(), Math.min(trait1.level(), trait2.level())));
-                    break;
-                }
+                //put in map with lowest level + 1
+                availableTraits.put(group,
+                        Math.min(
+                                Math.min(
+                                        traits3.get(group),
+                                        traits2.get(group)
+                                ),
+                                entry.getValue()) + 1
+                );
+                continue;
             }
+
+            //if trait is in second reagent only, put in map with lowest level
+            if (traits2.containsKey(group))
+                availableTraits.put(group, Math.min(entry.getValue(), traits2.get(group)));
+
+            //if trait is in third reagent only, put in map with lowest level
+            if (traits3.containsKey(group))
+                availableTraits.put(group, Math.min(entry.getValue(), traits3.get(group)));
         }
 
-        return list;
+        for (Map.Entry<String, Integer> entry : traits2.entrySet())
+        {
+            String group = entry.getKey();
+            //if group already on map, continue as it can't also be on third reagent
+            if(availableTraits.containsKey(group)) continue;
+
+            //if third reagent contains group, means that first didn't contain it so we must add it to the map
+            if(traits3.containsKey(group))
+                availableTraits.put(group, Math.min(entry.getValue(), traits3.get(group)));
+        }
+
+        List<Pair<String, Integer>> toReturn = new ArrayList<>();
+        availableTraits.forEach((k, v) -> toReturn.add(Pair.of(k, v)));
+        return toReturn;
     }
 
 

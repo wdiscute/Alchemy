@@ -25,7 +25,7 @@ public class DGAlchemyTraitPropertiesProvider extends DatapackBuiltinEntriesProv
 
     public DGAlchemyTraitPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
     {
-        DGAlchemyTraits.bootstrap(); //register all entries before anything else
+        DGTraits.bootstrap(); //register all entries before anything else
         super(output, registries, REGISTRY,
                 (c) ->
                         COMPAT_KEYS.forEach(rk -> c.accept(rk, new ModLoadedCondition(rk.identifier().getNamespace()))),

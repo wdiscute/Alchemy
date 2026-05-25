@@ -1,14 +1,38 @@
 {
   "values": {
-    "minecraft:regeneration": [
+    "minecraft:health_boost": [
+      {
+        "group": "vitality",
+        "level": 1
+      },
+      {
+        "group": "persistence",
+        "level": 1
+      }
+    ],
+    "minecraft:instant_health": [
       {
         "group": "vitality",
         "level": 1
       }
     ],
-    "minecraft:resistance": [
+    "minecraft:poison": [
       {
-        "group": "fortify",
+        "group": "toxicity",
+        "level": 1
+      },
+      {
+        "group": "sustainability",
+        "level": 1
+      }
+    ],
+    "minecraft:regeneration": [
+      {
+        "group": "vitality",
+        "level": 1
+      },
+      {
+        "group": "sustainability",
         "level": 1
       }
     ]

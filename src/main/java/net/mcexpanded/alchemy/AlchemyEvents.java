@@ -43,6 +43,7 @@ public class AlchemyEvents
         ItemStack stack = event.getItemStack();
         if(event.getEntity() == null) return;
 
+        boolean shift = event.getFlags().hasShiftDown();
         ReagentProperties reagentProperties = AlchemyDataMaps.get(stack);
         if (reagentProperties != null)
         {
@@ -52,7 +53,18 @@ public class AlchemyEvents
                     {
                         Identifier key = event.getEntity().level().registryAccess().lookupOrThrow(Alchemy.TRAIT_REGISTRY_KEY).getKey(trait.value());
                         MutableComponent name = Component.translatable("alchemy.trait." + key.toLanguageKey());
-                        toolTip.add(1, Component.literal(" -").append(name).withStyle(ChatFormatting.DARK_GRAY));
+
+                        MutableComponent comp = Component.literal(" -");
+                        comp.append(name);
+
+                        if(shift)
+                        {
+                            comp.append(Component.literal(" ("));
+                            comp.append(Component.translatable("alchemy.group." + trait.value().group()));
+                            comp.append(Component.translatable(" lvl. " + trait.value().level() + ")"));
+                        }
+
+                        toolTip.add(1, comp.withStyle(ChatFormatting.DARK_GRAY));
                     }
             );
 

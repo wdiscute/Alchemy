@@ -1,9 +1,97 @@
 {
 
+  "alchemy.group.vitality" : "Vitality",
   "alchemy.trait.alchemy.minor_vitality" : "Minor Vitality",
+  "alchemy.trait.alchemy.vitality" : "Vitality",
   "alchemy.trait.alchemy.major_vitality" : "Major Vitality",
-  "alchemy.trait.alchemy.fortify" : "Fortify"
 
+  "alchemy.group.toxicity" : "Toxicity",
+  "alchemy.trait.alchemy.minor_toxicity" : "Minor Toxicity",
+  "alchemy.trait.alchemy.toxicity" : "Toxicity",
+  "alchemy.trait.alchemy.major_toxicity" : "Major Toxicity",
 
+  "alchemy.group.hindrance" : "Hindrance",
+  "alchemy.trait.alchemy.minor_hindrance" : "Minor Fortify",
+  "alchemy.trait.alchemy.hindrance" : "Fortify",
+  "alchemy.trait.alchemy.major_hindrance" : "Major Fortify",
 
+  "alchemy.group.harm" : "Harm",
+  "alchemy.trait.alchemy.minor_harm" : "Minor Harm",
+  "alchemy.trait.alchemy.harm" : "Harm",
+  "alchemy.trait.alchemy.major_harm" : "Major Harm",
+
+  "alchemy.group.swiftness" : "Swiftness",
+  "alchemy.trait.alchemy.minor_swiftness" : "Minor Swiftness",
+  "alchemy.trait.alchemy.swiftness" : "Swiftness",
+  "alchemy.trait.alchemy.major_swiftness" : "Major Swiftness",
+
+  "alchemy.group.decay" : "Decay",
+  "alchemy.trait.alchemy.minor_decay" : "Minor Decay",
+  "alchemy.trait.alchemy.decay" : "Decay",
+  "alchemy.trait.alchemy.major_decay" : "Major Decay",
+
+  "alchemy.group.defile" : "Defile",
+  "alchemy.trait.alchemy.minor_defile" : "Minor Defile",
+  "alchemy.trait.alchemy.defile" : "Defile",
+  "alchemy.trait.alchemy.major_defile" : "Major Defile",
+
+  "alchemy.group.might" : "Might",
+  "alchemy.trait.alchemy.minor_might" : "Minor Might",
+  "alchemy.trait.alchemy.might" : "Might",
+  "alchemy.trait.alchemy.major_might" : "Major Might",
+
+  "alchemy.group.voracity" : "Voracity",
+  "alchemy.trait.alchemy.minor_voracity" : "Minor Voracity",
+  "alchemy.trait.alchemy.voracity" : "Voracity",
+  "alchemy.trait.alchemy.major_voracity" : "Major Voracity",
+
+  "alchemy.group.satiety" : "Satiety",
+  "alchemy.trait.alchemy.minor_satiety" : "Minor Satiety",
+  "alchemy.trait.alchemy.satiety" : "Satiety",
+  "alchemy.trait.alchemy.major_satiety" : "Major Satiety",
+
+  "alchemy.group.steadiness" : "Steadiness",
+  "alchemy.trait.alchemy.minor_steadiness" : "Minor Steadiness",
+  "alchemy.trait.alchemy.steadiness" : "Steadiness",
+  "alchemy.trait.alchemy.major_steadiness" : "Major Steadiness",
+
+  "alchemy.group.scorch" : "Scorch",
+  "alchemy.trait.alchemy.minor_scorch" : "Minor Scorch",
+  "alchemy.trait.alchemy.scorch" : "Scorch",
+  "alchemy.trait.alchemy.major_scorch" : "Major Scorch",
+
+  "alchemy.group.aquosity" : "Aquosity",
+  "alchemy.trait.alchemy.minor_aquosity" : "Minor Aquosity",
+  "alchemy.trait.alchemy.aquosity" : "Aquosity",
+  "alchemy.trait.alchemy.major_aquosity" : "Major Aquosity",
+
+  "alchemy.group.persistence" : "Persistence",
+  "alchemy.trait.alchemy.persistence" : "Persistence",
+
+  "alchemy.group.sustainability" : "Sustainability",
+  "alchemy.trait.alchemy.sustainability" : "Sustainability",
+
+  "alchemy.group.levity" : "Levity",
+  "alchemy.trait.alchemy.levity" : "Levity",
+
+  "alchemy.group.temporal" : "Temporal",
+  "alchemy.trait.alchemy.temporal" : "Temporal",
+
+  "alchemy.group.radiance" : "Radiance",
+  "alchemy.trait.alchemy.radiance" : "Radiance",
+
+  "alchemy.group.purity" : "Purity",
+  "alchemy.trait.alchemy.purity" : "Purity",
+
+  "alchemy.group.perception" : "Perception",
+  "alchemy.trait.alchemy.perception" : "Perception",
+
+  "alchemy.group.luminosity" : "Luminosity",
+  "alchemy.trait.alchemy.luminosity" : "Luminosity",
+
+  "alchemy.group.obscurity" : "Obscurity",
+  "alchemy.trait.alchemy.obscurity" : "Obscurity",
+
+  "alchemy.group.stickiness" : "Stickiness",
+  "alchemy.trait.alchemy.stickiness" : "Stickiness"
 }

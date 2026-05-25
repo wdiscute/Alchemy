@@ -18,9 +18,10 @@ public class StationMenu extends AbstractContainerMenu
     public final StationBlockEntity be;
     public static final int REAGENT_ONE = 0;
     public static final int REAGENT_TWO = 1;
-    public static final int FLASK = 2;
-    public static final int RESULT = 3;
-    public static final int CONTAINER_SIZE = 4;
+    public static final int REAGENT_THREE = 2;
+    public static final int FLASK = 3;
+    public static final int RESULT = 4;
+    public static final int CONTAINER_SIZE = 5;
 
     public StationMenu(int containerId, Inventory playerInventory, FriendlyByteBuf extraData)
     {
@@ -38,6 +39,7 @@ public class StationMenu extends AbstractContainerMenu
 
         this.addSlot(new Slot(container, REAGENT_ONE, 35, 32));
         this.addSlot(new Slot(container, REAGENT_TWO, 53, 32));
+        this.addSlot(new Slot(container, REAGENT_THREE, 71, 32));
 
         this.addSlot(new Slot(container, FLASK, 125, 32));
 
@@ -57,7 +59,7 @@ public class StationMenu extends AbstractContainerMenu
         if(buttonId == 67)
         {
 
-            ItemStack itemStack = Alchemy.craftPotion(container.getItem(REAGENT_ONE), container.getItem(REAGENT_TWO), container.getItem(FLASK));
+            ItemStack itemStack = Alchemy.craftPotion(container.getItem(REAGENT_ONE), container.getItem(REAGENT_TWO), container.getItem(REAGENT_THREE), container.getItem(FLASK));
 
             if(itemStack != null)
             {

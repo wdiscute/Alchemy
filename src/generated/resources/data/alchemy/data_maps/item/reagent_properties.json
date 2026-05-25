@@ -1,24 +1,261 @@
 {
   "values": {
-    "minecraft:lilac": {
+    "minecraft:allium": {
       "dilute": 1,
       "temperature": 1,
       "traits": [
-        "alchemy:major_vitality"
+        "alchemy:sustainability",
+        "alchemy:minor_swiftness",
+        "alchemy:major_voracity"
+      ]
+    },
+    "minecraft:azure_bluet": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:minor_defile",
+        "alchemy:minor_harm"
+      ]
+    },
+    "minecraft:blue_orchid": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_voracity",
+        "alchemy:minor_hindrance",
+        "alchemy:minor_swiftness",
+        "alchemy:minor_aquosity"
+      ]
+    },
+    "minecraft:brown_mushroom": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_toxicity",
+        "alchemy:minor_aquosity",
+        "alchemy:minor_satiety"
+      ]
+    },
+    "minecraft:closed_eyeblossom": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:harm",
+        "alchemy:defile",
+        "alchemy:toxicity"
+      ]
+    },
+    "minecraft:cobweb": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_hindrance",
+        "alchemy:minor_decay"
+      ]
+    },
+    "minecraft:cornflower": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:perception",
+        "alchemy:minor_steadiness",
+        "alchemy:minor_harm"
+      ]
+    },
+    "minecraft:crimson_fungus": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:scorch",
+        "alchemy:luminosity",
+        "alchemy:steadiness"
+      ]
+    },
+    "minecraft:dandelion": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_toxicity",
+        "alchemy:radiance",
+        "alchemy:minor_scorch"
+      ]
+    },
+    "minecraft:glistering_melon_slice": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_might",
+        "alchemy:persistence"
+      ]
+    },
+    "minecraft:glow_berries": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:luminosity",
+        "alchemy:vitality",
+        "alchemy:minor_defile"
+      ]
+    },
+    "minecraft:golden_carrot": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_voracity",
+        "alchemy:persistence",
+        "alchemy:perception"
+      ]
+    },
+    "minecraft:honey_bottle": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:stickiness",
+        "alchemy:major_satiety"
       ]
     },
     "minecraft:lily_of_the_valley": {
       "dilute": 1,
       "temperature": 1,
       "traits": [
-        "alchemy:fortify"
+        "alchemy:minor_toxicity",
+        "alchemy:minor_steadiness",
+        "alchemy:persistence"
+      ]
+    },
+    "minecraft:open_eyeblossom": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:vitality",
+        "alchemy:satiety",
+        "alchemy:scorch"
+      ]
+    },
+    "minecraft:orange_tulip": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:minor_swiftness",
+        "alchemy:minor_voracity"
+      ]
+    },
+    "minecraft:oxeye_daisy": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:perception",
+        "alchemy:sustainability",
+        "alchemy:minor_decay",
+        "alchemy:minor_toxicity"
       ]
     },
     "minecraft:pink_tulip": {
       "dilute": 1,
       "temperature": 1,
       "traits": [
-        "alchemy:fortify"
+        "alchemy:minor_vitality",
+        "alchemy:sustainability",
+        "alchemy:minor_defile"
+      ]
+    },
+    "minecraft:pitcher_plant": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:satiety",
+        "alchemy:major_vitality",
+        "alchemy:satiety"
+      ]
+    },
+    "minecraft:poppy": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:persistence",
+        "alchemy:minor_swiftness"
+      ]
+    },
+    "minecraft:red_mushroom": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:minor_hindrance",
+        "alchemy:minor_satiety"
+      ]
+    },
+    "minecraft:red_tulip": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:minor_might",
+        "alchemy:minor_toxicity"
+      ]
+    },
+    "minecraft:sculk": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:obscurity",
+        "alchemy:major_decay"
+      ]
+    },
+    "minecraft:slime_ball": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:stickiness"
+      ]
+    },
+    "minecraft:sunflower": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_scorch",
+        "alchemy:radiance",
+        "alchemy:minor_toxicity"
+      ]
+    },
+    "minecraft:torchflower": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:scorch",
+        "alchemy:toxicity",
+        "alchemy:luminosity",
+        "alchemy:voracity"
+      ]
+    },
+    "minecraft:warped_fungus": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:scorch",
+        "alchemy:defile",
+        "alchemy:decay"
+      ]
+    },
+    "minecraft:white_tulip": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:minor_vitality",
+        "alchemy:purity",
+        "alchemy:minor_decay"
+      ]
+    },
+    "minecraft:wither_rose": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_decay",
+        "alchemy:major_toxicity",
+        "alchemy:major_harm"
       ]
     }
   }
