@@ -13,12 +13,12 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class AlchemyMenuTypes
+public interface AlchemyMenuTypes
 {
-    public static final DeferredRegister<MenuType<?>> MENUS =
+    DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(Registries.MENU, Alchemy.MOD_ID);
 
-    public static final Supplier<MenuType<StationMenu>> STATION =
+    Supplier<MenuType<StationMenu>> STATION =
             registerMenuType("station", StationMenu::new);
 
     private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
@@ -26,7 +26,7 @@ public class AlchemyMenuTypes
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
     }
 
-    public static void register(IEventBus eventBus) {
+    static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }
 }

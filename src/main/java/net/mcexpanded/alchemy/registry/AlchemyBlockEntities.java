@@ -9,20 +9,20 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class AlchemyBlockEntities
+public interface AlchemyBlockEntities
 {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+    DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Alchemy.MOD_ID);
 
 
-    public static final Supplier<BlockEntityType<StationBlockEntity>> STATION =
+    Supplier<BlockEntityType<StationBlockEntity>> STATION =
             BLOCK_ENTITIES.register("station",
                     () -> new BlockEntityType<>(StationBlockEntity::new,
                             AlchemyBlocks.STATION.get()
                     ));
 
 
-    public static void register(IEventBus eventBus)
+    static void register(IEventBus eventBus)
     {
         BLOCK_ENTITIES.register(eventBus);
     }

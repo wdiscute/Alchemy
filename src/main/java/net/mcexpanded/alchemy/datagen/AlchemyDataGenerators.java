@@ -36,7 +36,7 @@ public class AlchemyDataGenerators
         //PackOutput output = gen.getPackOutput();
 
         //item models
-        //event.createProvider(DGSCModelProvider::new);
+        event.createProvider(DGAlchemyModelProvider::new);
 
         //biome modifiers
         //event.createProvider(DGSCBiomeModifierProvider::new);

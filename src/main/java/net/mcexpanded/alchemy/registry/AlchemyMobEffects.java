@@ -1,6 +1,6 @@
 package net.mcexpanded.alchemy.registry;
 
-public class AlchemyMobEffects
+public interface AlchemyMobEffects
 {
 
 

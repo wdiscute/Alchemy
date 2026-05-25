@@ -1,6 +1,7 @@
 package net.mcexpanded.alchemy.station;
 
 import net.mcexpanded.alchemy.Alchemy;
+import net.mcexpanded.alchemy.potion.PotionAPI;
 import net.mcexpanded.alchemy.registry.AlchemyMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -41,7 +42,10 @@ public class StationMenu extends AbstractContainerMenu
         this.addSlot(new Slot(container, REAGENT_TWO, 53, 32));
         this.addSlot(new Slot(container, REAGENT_THREE, 71, 32));
 
-        this.addSlot(new Slot(container, FLASK, 125, 32));
+        this.addSlot(new Slot(container, FLASK, 89, 32));
+
+        this.addSlot(new Slot(container, RESULT, 125, 32));
+
 
         for (int i1 = 0; i1 < 3; ++i1)
             for (int k1 = 0; k1 < 9; ++k1)
@@ -56,18 +60,34 @@ public class StationMenu extends AbstractContainerMenu
     public boolean clickMenuButton(Player player, int buttonId)
     {
 
-        if(buttonId == 67)
+        if (buttonId == 67)
         {
+            ItemStack result = container.getItem(RESULT);
+            if(result == null || !result.isEmpty()) return super.clickMenuButton(player, buttonId);
 
-            ItemStack itemStack = Alchemy.craftPotion(container.getItem(REAGENT_ONE), container.getItem(REAGENT_TWO), container.getItem(REAGENT_THREE), container.getItem(FLASK));
+            ItemStack reagent1 = container.getItem(REAGENT_ONE);
+            ItemStack reagent2 = container.getItem(REAGENT_TWO);
+            ItemStack reagent3 = container.getItem(REAGENT_THREE);
+            ItemStack flask = container.getItem(FLASK);
+
+            ItemStack itemStack = PotionAPI.craftPotion(reagent1, reagent2, reagent3, flask);
 
             if(itemStack != null)
             {
+                reagent1.shrink(1);
+                reagent2.shrink(1);
+                reagent3.shrink(1);
+                flask.shrink(1);
+
+                container.setItem(REAGENT_ONE, reagent1);
+                container.setItem(REAGENT_TWO, reagent2);
+                container.setItem(REAGENT_THREE, reagent3);
+                container.setItem(FLASK, flask);
+
                 container.setItem(RESULT, itemStack);
+
+                return true;
             }
-
-
-            System.out.println("received click");
         }
 
         return super.clickMenuButton(player, buttonId);

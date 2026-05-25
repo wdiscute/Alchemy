@@ -26,6 +26,16 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+
+    //jei
+    maven {
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+
+    //jei
+    maven {
+        url = "https://modmaven.dev"
+    }
 }
 
 dependencies {
@@ -33,10 +43,14 @@ dependencies {
     jarJar(implementation("maven.modrinth:fancytabsections:2.0-NEOFORGE-26.1.2"))
 
     //iris
-    //runtimeOnly("maven.modrinth:iris:YEGDGnJM")
+    runtimeOnly("maven.modrinth:iris:YEGDGnJM")
 
     //sodium
-    //runtimeOnly("maven.modrinth:sodium:tLByymK0")
+    runtimeOnly("maven.modrinth:sodium:tLByymK0")
+
+    //JEI
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
 }
 
