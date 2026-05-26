@@ -1,6 +1,7 @@
-package net.mcexpanded.alchemy.potion;
+package net.mcexpanded.alchemy.potion.item;
 
 import com.mojang.serialization.MapCodec;
+import net.mcexpanded.alchemy.potion.PotionData;
 import net.mcexpanded.alchemy.registry.AlchemyDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;

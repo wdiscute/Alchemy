@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "alchemy:item/round_flask_large"
+    "layer0": "alchemy:item/round_flask_large_overlay",
+    "layer1": "alchemy:item/round_flask_large"
   }
 }

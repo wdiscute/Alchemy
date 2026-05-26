@@ -1,4 +1,6 @@
-package net.mcexpanded.alchemy.potion;
+package net.mcexpanded.alchemy.potion.item;
+
+import net.mcexpanded.alchemy.potion.PotionItem;
 
 public class DrinkablePotionItem extends PotionItem
 {

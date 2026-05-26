@@ -1,9 +1,9 @@
 package net.mcexpanded.alchemy.registry;
 
 import net.mcexpanded.alchemy.Alchemy;
-import net.mcexpanded.alchemy.potion.DrinkablePotionItem;
-import net.mcexpanded.alchemy.potion.SprayPotionItem;
-import net.mcexpanded.alchemy.potion.ThrowablePotionItem;
+import net.mcexpanded.alchemy.potion.item.DrinkablePotionItem;
+import net.mcexpanded.alchemy.potion.item.SprayPotionItem;
+import net.mcexpanded.alchemy.potion.item.ThrowablePotionItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;

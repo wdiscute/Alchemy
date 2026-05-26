@@ -5,28 +5,43 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "alchemy:item/cubic_flask_small"
+          "model": "alchemy:item/cubic_flask_small",
+          "tints": [
+            {
+              "type": "alchemy:potion_ting"
+            }
+          ]
         },
         "threshold": 1.0
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "alchemy:item/cubic_flask"
+          "model": "alchemy:item/cubic_flask",
+          "tints": [
+            {
+              "type": "alchemy:potion_ting"
+            }
+          ]
         },
         "threshold": 2.0
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "alchemy:item/cubic_flask_large"
+          "model": "alchemy:item/cubic_flask_large",
+          "tints": [
+            {
+              "type": "alchemy:potion_ting"
+            }
+          ]
         },
         "threshold": 3.0
       }
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "alchemy:item/cubic_flask"
+      "model": "alchemy:item/cubic_flask_empty"
     },
     "property": "alchemy:potion_type"
   }

@@ -3,7 +3,8 @@ package net.mcexpanded.alchemy;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.mcexpanded.alchemy.alchemy.TraitProperties;
 import net.mcexpanded.alchemy.potion.PotionData;
-import net.mcexpanded.alchemy.potion.PotionTypeItemProperty;
+import net.mcexpanded.alchemy.potion.item.PotionTintItemProperty;
+import net.mcexpanded.alchemy.potion.item.PotionTypeItemProperty;
 import net.mcexpanded.alchemy.registry.AlchemyDataComponents;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
 import net.mcexpanded.alchemy.registry.AlchemyMenuTypes;
@@ -13,9 +14,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -47,6 +48,13 @@ public class AlchemyEvents
     {
         event.register(Alchemy.rl("potion_type"), PotionTypeItemProperty.MAP_CODEC);
     }
+
+    @SubscribeEvent
+    public static void registerItemTint(RegisterColorHandlersEvent.ItemTintSources event)
+    {
+        event.register(Alchemy.rl("potion_ting"), PotionTintItemProperty.MAP_CODEC);
+    }
+
 
     @SubscribeEvent
     public static void tooltipEvent(ItemTooltipEvent event)

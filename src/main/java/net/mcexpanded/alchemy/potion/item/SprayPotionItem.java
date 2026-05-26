@@ -1,6 +1,6 @@
-package net.mcexpanded.alchemy.potion;
+package net.mcexpanded.alchemy.potion.item;
 
-import net.minecraft.world.item.Item;
+import net.mcexpanded.alchemy.potion.PotionItem;
 
 public class SprayPotionItem extends PotionItem
 {

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "alchemy:item/conical_flask"
+    "layer0": "alchemy:item/conical_flask_overlay",
+    "layer1": "alchemy:item/conical_flask"
   }
 }
