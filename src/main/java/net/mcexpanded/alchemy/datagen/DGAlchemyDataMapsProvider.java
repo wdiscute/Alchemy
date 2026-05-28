@@ -10,6 +10,7 @@ import net.mcexpanded.alchemy.registry.AlchemyMobEffects;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.DataMapProvider;
@@ -79,7 +80,7 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.HEALTH_RECOVERY,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1, true)
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true, 0)
                         ),
                         100,
                         0
@@ -90,8 +91,8 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.SUSTAINED_HEALTH_RECOVERY,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1, true),
-                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false)
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true, 0),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false, 300)
                         ),
                         900,
                         0
@@ -102,8 +103,8 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.MAX_HEALTH,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1, true),
-                                new TraitRequirement(TraitGroups.PERSISTENCE, 1, false)
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true, 0),
+                                new TraitRequirement(TraitGroups.PERSISTENCE, 1, false, 900)
                         ),
                         900,
                         0
@@ -114,8 +115,8 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.POISON,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.TOXICITY, 1, true),
-                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false)
+                                new TraitRequirement(TraitGroups.TOXICITY, 1, true, 0),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false, 300)
                         ),
                         900,
                         0
@@ -126,9 +127,9 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.DISEASE_DAMAGE,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.TOXICITY, 1, true)
+                                new TraitRequirement(TraitGroups.TOXICITY, 1, false, 20)
                         ),
-                        900,
+                        20,
                         0
                 ), false);
 
@@ -137,8 +138,20 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 AlchemyMobEffects.AURA_OF_DECAY,
                 new PotionEffectProperties(
                         List.of(
-                                new TraitRequirement(TraitGroups.DECAY, 1, true),
-                                new TraitRequirement(TraitGroups.RADIANCE, 1, false)
+                                new TraitRequirement(TraitGroups.DECAY, 1, true, 300),
+                                new TraitRequirement(TraitGroups.RADIANCE, 1, false, 0)
+                        ),
+                        900,
+                        0
+                ), false);
+
+        //invisibility
+        requirements.add(
+                MobEffects.INVISIBILITY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.OBSCURITY, 1, false, 0),
+                                new TraitRequirement(TraitGroups.PURITY, 1, false, 0)
                         ),
                         900,
                         0

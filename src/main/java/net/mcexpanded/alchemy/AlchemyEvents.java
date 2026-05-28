@@ -2,6 +2,8 @@ package net.mcexpanded.alchemy;
 
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.mcexpanded.alchemy.alchemy.TraitProperties;
+import net.mcexpanded.alchemy.effects.AbstractAura;
+import net.mcexpanded.alchemy.effects.AuraOfSlowness;
 import net.mcexpanded.alchemy.potion.PotionData;
 import net.mcexpanded.alchemy.potion.item.PotionTintItemProperty;
 import net.mcexpanded.alchemy.potion.item.PotionTypeItemProperty;
@@ -14,6 +16,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,12 +25,15 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @EventBusSubscriber(modid = Alchemy.MOD_ID)
 public class AlchemyEvents
@@ -51,6 +58,33 @@ public class AlchemyEvents
     public static void registerItemProperties(RegisterRangeSelectItemModelPropertyEvent event)
     {
         event.register(Alchemy.rl("potion_type"), PotionTypeItemProperty.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectExpired(MobEffectEvent.Expired event)
+    {
+        //remove all modifiers applied from auras when aura effect expires
+        if(event.getEffectInstance().getEffect().value() instanceof AbstractAura aura)
+        {
+            List<LivingEntity> listOfAffectedEntities = aura.getMap().getOrDefault(event.getEntity(), new ArrayList<>());
+            listOfAffectedEntities.stream().filter(Objects::nonNull).forEach(
+                    e -> e.getAttribute(aura.attribute).removeModifier(aura.modifier));
+            aura.getMap().remove(event.getEntity());
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onMobEffectExpired(MobEffectEvent.Remove event)
+    {
+        //remove all modifiers applied from auras when aura effect is removed
+        if(event.getEffect().value() instanceof AbstractAura aura)
+        {
+            List<LivingEntity> listOfAffectedEntities = aura.getMap().getOrDefault(event.getEntity(), new ArrayList<>());
+            listOfAffectedEntities.stream().filter(Objects::nonNull).forEach(
+                    e -> e.getAttribute(aura.attribute).removeModifier(aura.modifier));
+            aura.getMap().remove(event.getEntity());
+        }
     }
 
     @SubscribeEvent

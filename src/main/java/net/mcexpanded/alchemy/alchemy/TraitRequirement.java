@@ -9,7 +9,8 @@ public record TraitRequirement
         (
                 String group,
                 int level,
-                boolean higherLevelsAmplifyEffect
+                boolean higherLevelsAmplifyEffect,
+                int higherLevelsAddTicksToDuration
         )
 {
 
@@ -17,7 +18,8 @@ public record TraitRequirement
         instance.group(
                 Codec.STRING.fieldOf("group").forGetter(TraitRequirement::group),
                 Codec.INT.fieldOf("level").forGetter(TraitRequirement::level),
-                Codec.BOOL.fieldOf("higher_levels_amplify_effect").forGetter(TraitRequirement::higherLevelsAmplifyEffect)
+                Codec.BOOL.fieldOf("higher_levels_amplify_effect").forGetter(TraitRequirement::higherLevelsAmplifyEffect),
+                Codec.INT.fieldOf("higher_levels_add_ticks_to_duration").forGetter(TraitRequirement::higherLevelsAddTicksToDuration)
         ).apply(instance, TraitRequirement::new));
 
         public static final Codec<List<TraitRequirement>> LIST_CODEC = CODEC.listOf();

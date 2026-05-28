@@ -53,6 +53,7 @@ public class PotionAPI
                                 t -> t.getFirst().equals(o.group()) && t.getSecond() >= o.level())))
                 {
                     int amp = 0;
+                    int duration = 0;
 
                     //for each req that amplifies based on level
                     for (TraitRequirement req : effectRequirements.stream().filter(TraitRequirement::higherLevelsAmplifyEffect).toList())
@@ -65,9 +66,21 @@ public class PotionAPI
                             amp += trait.getSecond() - req.level();
                     }
 
+
+                    //for each req that adds ticks to duration based on level
+                    for (TraitRequirement req : effectRequirements.stream().filter(TraitRequirement::higherLevelsAmplifyEffect).toList())
+                    {
+                        //for each trait that matches the req group (should always only be 1)
+                        List<Pair<String, Integer>> list = availableTraits.stream().filter(o -> o.getFirst().equals(req.group())).toList();
+
+                        //add the extra levels to the amp
+                        for (Pair<String, Integer> trait : list)
+                            duration += (trait.getSecond() - req.level()) * req.higherLevelsAddTicksToDuration();
+                    }
+
                     PotionData potionData = new PotionData(
                             BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me),
-                            potionEffectProperties.duration(),
+                            potionEffectProperties.duration() + duration,
                             potionEffectProperties.level() + amp
                             );
 
