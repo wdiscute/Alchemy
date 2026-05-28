@@ -11,9 +11,9 @@
   "alchemy.trait.alchemy.major_toxicity" : "Major Toxicity",
 
   "alchemy.group.hindrance" : "Hindrance",
-  "alchemy.trait.alchemy.minor_hindrance" : "Minor Fortify",
-  "alchemy.trait.alchemy.hindrance" : "Fortify",
-  "alchemy.trait.alchemy.major_hindrance" : "Major Fortify",
+  "alchemy.trait.alchemy.minor_hindrance" : "Minor Hindrance",
+  "alchemy.trait.alchemy.hindrance" : "Hindrance",
+  "alchemy.trait.alchemy.major_hindrance" : "Major Hindrance",
 
   "alchemy.group.harm" : "Harm",
   "alchemy.trait.alchemy.minor_harm" : "Minor Harm",
@@ -115,6 +115,7 @@
   "effect.alchemy.poison" : "Poison",
   "effect.alchemy.disease_damage" : "Disease Damage",
 
-  "effect.alchemy.aura_of_decay" : "Aura Of Decay"
+  "effect.alchemy.aura_of_decay" : "Aura Of Decay",
+  "effect.alchemy.aura_of_slowness" : "Aura Of Slowness"
 
 }

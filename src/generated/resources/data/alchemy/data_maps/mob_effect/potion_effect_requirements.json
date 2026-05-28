@@ -6,23 +6,44 @@
       "traits_required": [
         {
           "group": "decay",
+          "higher_levels_add_ticks_to_duration": 300,
           "higher_levels_amplify_effect": true,
           "level": 1
         },
         {
           "group": "radiance",
+          "higher_levels_add_ticks_to_duration": 0,
+          "higher_levels_amplify_effect": false,
+          "level": 1
+        }
+      ]
+    },
+    "alchemy:aura_of_slowness": {
+      "duration_in_ticks": 900,
+      "effect_level": 0,
+      "traits_required": [
+        {
+          "group": "hindrance",
+          "higher_levels_add_ticks_to_duration": 0,
+          "higher_levels_amplify_effect": false,
+          "level": 1
+        },
+        {
+          "group": "radiance",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": false,
           "level": 1
         }
       ]
     },
     "alchemy:disease_damage": {
-      "duration_in_ticks": 900,
+      "duration_in_ticks": 20,
       "effect_level": 0,
       "traits_required": [
         {
           "group": "toxicity",
-          "higher_levels_amplify_effect": true,
+          "higher_levels_add_ticks_to_duration": 20,
+          "higher_levels_amplify_effect": false,
           "level": 1
         }
       ]
@@ -33,6 +54,7 @@
       "traits_required": [
         {
           "group": "vitality",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": true,
           "level": 1
         }
@@ -44,11 +66,13 @@
       "traits_required": [
         {
           "group": "vitality",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": true,
           "level": 1
         },
         {
           "group": "persistence",
+          "higher_levels_add_ticks_to_duration": 900,
           "higher_levels_amplify_effect": false,
           "level": 1
         }
@@ -60,11 +84,13 @@
       "traits_required": [
         {
           "group": "toxicity",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": true,
           "level": 1
         },
         {
           "group": "sustainability",
+          "higher_levels_add_ticks_to_duration": 300,
           "higher_levels_amplify_effect": false,
           "level": 1
         }
@@ -76,11 +102,37 @@
       "traits_required": [
         {
           "group": "vitality",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": true,
           "level": 1
         },
         {
           "group": "sustainability",
+          "higher_levels_add_ticks_to_duration": 300,
+          "higher_levels_amplify_effect": false,
+          "level": 1
+        }
+      ]
+    },
+    "minecraft:invisibility": {
+      "duration_in_ticks": 900,
+      "effect_level": 0,
+      "traits_required": [
+        {
+          "group": "obscurity",
+          "higher_levels_add_ticks_to_duration": 0,
+          "higher_levels_amplify_effect": false,
+          "level": 1
+        },
+        {
+          "group": "purity",
+          "higher_levels_add_ticks_to_duration": 0,
+          "higher_levels_amplify_effect": false,
+          "level": 1
+        },
+        {
+          "group": "persistence",
+          "higher_levels_add_ticks_to_duration": 0,
           "higher_levels_amplify_effect": false,
           "level": 1
         }

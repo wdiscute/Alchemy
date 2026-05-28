@@ -147,7 +147,7 @@ public class AlchemyEvents
         {
             MutableComponent comp = Component.translatable("effect." + o.effect().getRegisteredName().replace(":", "."));
 
-            if (o.level() == 1)
+            if (o.level() == 0)
                 comp.append(Component.literal(" (" + o.duration() + ")"));
             else
                 comp.append(Component.literal(" " + o.level() + " (" + o.duration() + ")"));

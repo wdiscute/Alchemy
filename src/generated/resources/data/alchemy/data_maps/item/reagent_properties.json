@@ -51,6 +51,7 @@
       "temperature": 1,
       "traits": [
         "alchemy:major_hindrance",
+        "alchemy:radiance",
         "alchemy:minor_decay"
       ]
     },

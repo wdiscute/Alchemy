@@ -15,7 +15,7 @@ public class AuraOfSlowness extends AbstractAura
                 Alchemy.rl("aura_of_slowness"),
                 -0.5f,
                 Operation.ADD_MULTIPLIED_BASE,
-                10,
+                1,
                 10,
                 0xff000000
         );

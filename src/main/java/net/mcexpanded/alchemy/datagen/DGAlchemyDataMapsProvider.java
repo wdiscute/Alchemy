@@ -25,52 +25,6 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
         super(packOutput, lookupProvider);
     }
 
-    private void decay(HolderLookup.Provider provider)
-    {
-        var decay = this.builder(AlchemyDataMaps.DECAY_CONVERSION);
-
-        decay.add(Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.DIRT.defaultBlockState(), false);
-        decay.add(Blocks.DIRT.builtInRegistryHolder(), Blocks.COARSE_DIRT.defaultBlockState(), false);
-
-        decay.add(BlockTags.FLOWERS, Blocks.DEAD_BUSH.defaultBlockState(), false);
-
-        decay.add(Blocks.FERN.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
-        decay.add(Blocks.BUSH.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
-        decay.add(Blocks.SHORT_GRASS.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
-        decay.add(Blocks.TALL_GRASS.builtInRegistryHolder(), Blocks.TALL_DRY_GRASS.defaultBlockState(), false);
-
-        decay.add(BlockTags.LEAVES, Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.VINE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-
-        decay.add(Blocks.MOSSY_COBBLESTONE.builtInRegistryHolder(), Blocks.COBBLESTONE.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_COBBLESTONE_SLAB.builtInRegistryHolder(), Blocks.COBBLESTONE_SLAB.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_COBBLESTONE_STAIRS.builtInRegistryHolder(), Blocks.COBBLESTONE_STAIRS.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_COBBLESTONE_WALL.builtInRegistryHolder(), Blocks.COBBLESTONE_WALL.defaultBlockState(), false);
-
-        decay.add(Blocks.MOSSY_STONE_BRICK_SLAB.builtInRegistryHolder(), Blocks.STONE_BRICK_SLAB.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_STONE_BRICK_STAIRS.builtInRegistryHolder(), Blocks.STONE_BRICK_STAIRS.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_STONE_BRICK_WALL.builtInRegistryHolder(), Blocks.STONE_BRICK_WALL.defaultBlockState(), false);
-        decay.add(Blocks.MOSSY_STONE_BRICKS.builtInRegistryHolder(), Blocks.STONE_BRICKS.defaultBlockState(), false);
-
-
-        decay.add(Blocks.BAMBOO.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-
-        decay.add(Blocks.RED_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-
-        decay.add(Blocks.WHEAT.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.CARROTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.BEETROOTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.POTATOES.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-
-        decay.add(Blocks.SUGAR_CANE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-
-        decay.add(Blocks.MELON.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.MELON_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.PUMPKIN.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-        decay.add(Blocks.PUMPKIN_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
-    }
-
     public void potions(HolderLookup.Provider provider)
     {
         var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
@@ -151,7 +105,21 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 new PotionEffectProperties(
                         List.of(
                                 new TraitRequirement(TraitGroups.OBSCURITY, 1, false, 0),
-                                new TraitRequirement(TraitGroups.PURITY, 1, false, 0)
+                                new TraitRequirement(TraitGroups.PURITY, 1, false, 0),
+                                new TraitRequirement(TraitGroups.PERSISTENCE, 1, false, 0)
+                        ),
+                        900,
+                        0
+                ), false);
+
+
+        //invisibility
+        requirements.add(
+                AlchemyMobEffects.AURA_OF_SLOWNESS,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.HINDRANCE, 1, false, 0),
+                                new TraitRequirement(TraitGroups.RADIANCE, 1, false, 0)
                         ),
                         900,
                         0
@@ -467,6 +435,7 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                         traits,
                         1, 1,
                         DGTraits.MAJOR_HINDRANCE,
+                        DGTraits.RADIANCE,
                         DGTraits.MINOR_DECAY
                 ), false);
 
@@ -489,6 +458,51 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 ), false);
     }
 
+    private void decay(HolderLookup.Provider provider)
+    {
+        var decay = this.builder(AlchemyDataMaps.DECAY_CONVERSION);
+
+        decay.add(Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.DIRT.defaultBlockState(), false);
+        decay.add(Blocks.DIRT.builtInRegistryHolder(), Blocks.COARSE_DIRT.defaultBlockState(), false);
+
+        decay.add(BlockTags.FLOWERS, Blocks.DEAD_BUSH.defaultBlockState(), false);
+
+        decay.add(Blocks.FERN.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.BUSH.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.SHORT_GRASS.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.TALL_GRASS.builtInRegistryHolder(), Blocks.TALL_DRY_GRASS.defaultBlockState(), false);
+
+        decay.add(BlockTags.LEAVES, Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.VINE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.MOSSY_COBBLESTONE.builtInRegistryHolder(), Blocks.COBBLESTONE.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_SLAB.builtInRegistryHolder(), Blocks.COBBLESTONE_SLAB.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_STAIRS.builtInRegistryHolder(), Blocks.COBBLESTONE_STAIRS.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_WALL.builtInRegistryHolder(), Blocks.COBBLESTONE_WALL.defaultBlockState(), false);
+
+        decay.add(Blocks.MOSSY_STONE_BRICK_SLAB.builtInRegistryHolder(), Blocks.STONE_BRICK_SLAB.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICK_STAIRS.builtInRegistryHolder(), Blocks.STONE_BRICK_STAIRS.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICK_WALL.builtInRegistryHolder(), Blocks.STONE_BRICK_WALL.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICKS.builtInRegistryHolder(), Blocks.STONE_BRICKS.defaultBlockState(), false);
+
+
+        decay.add(Blocks.BAMBOO.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.RED_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.WHEAT.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.CARROTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.BEETROOTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.POTATOES.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.SUGAR_CANE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.MELON.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.MELON_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.PUMPKIN.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.PUMPKIN_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+    }
 
     @Override
     protected void gather(HolderLookup.Provider provider)
