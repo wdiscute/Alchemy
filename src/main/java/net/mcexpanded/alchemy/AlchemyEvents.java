@@ -44,6 +44,7 @@ public class AlchemyEvents
     {
         event.register(AlchemyDataMaps.REAGENT_PROPERTIES);
         event.register(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
+        event.register(AlchemyDataMaps.DECAY_CONVERSION);
     }
 
     @SubscribeEvent

@@ -9,6 +9,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
 import java.util.List;
@@ -23,6 +25,17 @@ public interface AlchemyDataMaps
     DataMapType<MobEffect, PotionEffectProperties> POTION_EFFECT_PROPERTIES = DataMapType.builder(
                     Alchemy.rl("potion_effect_requirements"), Registries.MOB_EFFECT, PotionEffectProperties.CODEC)
             .synced(PotionEffectProperties.CODEC, true).build();
+
+
+    DataMapType<Block, BlockState> DECAY_CONVERSION = DataMapType.builder(
+                    Alchemy.rl("decay_conversion"), Registries.BLOCK, BlockState.CODEC)
+            .synced(BlockState.CODEC, true).build();
+
+    static BlockState get(Block block)
+    {
+        return block.builtInRegistryHolder().getData(DECAY_CONVERSION);
+    }
+
 
     static ReagentProperties get(ItemStack stack)
     {

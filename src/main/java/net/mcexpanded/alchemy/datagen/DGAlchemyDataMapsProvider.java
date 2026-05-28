@@ -9,7 +9,9 @@ import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
 import net.mcexpanded.alchemy.registry.AlchemyMobEffects;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 
 import java.util.List;
@@ -22,8 +24,128 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
         super(packOutput, lookupProvider);
     }
 
-    @Override
-    protected void gather(HolderLookup.Provider provider)
+    private void decay(HolderLookup.Provider provider)
+    {
+        var decay = this.builder(AlchemyDataMaps.DECAY_CONVERSION);
+
+        decay.add(Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.DIRT.defaultBlockState(), false);
+        decay.add(Blocks.DIRT.builtInRegistryHolder(), Blocks.COARSE_DIRT.defaultBlockState(), false);
+
+        decay.add(BlockTags.FLOWERS, Blocks.DEAD_BUSH.defaultBlockState(), false);
+
+        decay.add(Blocks.FERN.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.BUSH.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.SHORT_GRASS.builtInRegistryHolder(), Blocks.SHORT_DRY_GRASS.defaultBlockState(), false);
+        decay.add(Blocks.TALL_GRASS.builtInRegistryHolder(), Blocks.TALL_DRY_GRASS.defaultBlockState(), false);
+
+        decay.add(BlockTags.LEAVES, Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.VINE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.MOSSY_COBBLESTONE.builtInRegistryHolder(), Blocks.COBBLESTONE.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_SLAB.builtInRegistryHolder(), Blocks.COBBLESTONE_SLAB.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_STAIRS.builtInRegistryHolder(), Blocks.COBBLESTONE_STAIRS.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_COBBLESTONE_WALL.builtInRegistryHolder(), Blocks.COBBLESTONE_WALL.defaultBlockState(), false);
+
+        decay.add(Blocks.MOSSY_STONE_BRICK_SLAB.builtInRegistryHolder(), Blocks.STONE_BRICK_SLAB.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICK_STAIRS.builtInRegistryHolder(), Blocks.STONE_BRICK_STAIRS.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICK_WALL.builtInRegistryHolder(), Blocks.STONE_BRICK_WALL.defaultBlockState(), false);
+        decay.add(Blocks.MOSSY_STONE_BRICKS.builtInRegistryHolder(), Blocks.STONE_BRICKS.defaultBlockState(), false);
+
+
+        decay.add(Blocks.BAMBOO.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.RED_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.WHEAT.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.CARROTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.BEETROOTS.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.POTATOES.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.SUGAR_CANE.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+
+        decay.add(Blocks.MELON.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.MELON_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.PUMPKIN.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+        decay.add(Blocks.PUMPKIN_STEM.builtInRegistryHolder(), Blocks.AIR.defaultBlockState(), false);
+    }
+
+    public void potions(HolderLookup.Provider provider)
+    {
+        var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
+
+        //health recovery aka instant health
+        requirements.add(
+                AlchemyMobEffects.HEALTH_RECOVERY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true)
+                        ),
+                        100,
+                        0
+                ), false);
+
+        //sustained health recovery aka regeneration
+        requirements.add(
+                AlchemyMobEffects.SUSTAINED_HEALTH_RECOVERY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false)
+                        ),
+                        900,
+                        0
+                ), false);
+
+        //max health aka health boost
+        requirements.add(
+                AlchemyMobEffects.MAX_HEALTH,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1, true),
+                                new TraitRequirement(TraitGroups.PERSISTENCE, 1, false)
+                        ),
+                        900,
+                        0
+                ), false);
+
+        //poison aka poison
+        requirements.add(
+                AlchemyMobEffects.POISON,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.TOXICITY, 1, true),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1, false)
+                        ),
+                        900,
+                        0
+                ), false);
+
+        //disease damage aka instant damage but tagged as poison damage
+        requirements.add(
+                AlchemyMobEffects.DISEASE_DAMAGE,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.TOXICITY, 1, true)
+                        ),
+                        900,
+                        0
+                ), false);
+
+        //aura of decay, transforms blocks around into decayed version
+        requirements.add(
+                AlchemyMobEffects.AURA_OF_DECAY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.DECAY, 1, true),
+                                new TraitRequirement(TraitGroups.RADIANCE, 1, false)
+                        ),
+                        900,
+                        0
+                ), false);
+    }
+
+    public void reagents(HolderLookup.Provider provider)
     {
         var reagents = this.builder(AlchemyDataMaps.REAGENT_PROPERTIES);
 
@@ -221,6 +343,16 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                         DGTraits.MAJOR_HARM
                 ), false);
 
+        reagents.add(Items.WITHER_SKELETON_SKULL.builtInRegistryHolder(),
+                new ReagentProperties(
+                        traits,
+                        1, 1,
+                        DGTraits.MAJOR_DECAY,
+                        DGTraits.MAJOR_HARM,
+                        DGTraits.RADIANCE,
+                        DGTraits.MAJOR_SCORCH
+                ), false);
+
         reagents.add(Items.TORCHFLOWER.builtInRegistryHolder(),
                 new ReagentProperties(
                         traits,
@@ -342,67 +474,17 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                         DGTraits.PERSISTENCE,
                         DGTraits.PERCEPTION
                 ), false);
+    }
 
 
-        var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
+    @Override
+    protected void gather(HolderLookup.Provider provider)
+    {
 
-        //health recovery aka instant health
-        requirements.add(
-                AlchemyMobEffects.HEALTH_RECOVERY,
-                new PotionEffectProperties(
-                        List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1)
-                        ),
-                        100,
-                        1
-                ), false);
+        potions(provider);
+        reagents(provider);
+        decay(provider);
 
-        //sustained health recovery aka regeneration
-        requirements.add(
-                AlchemyMobEffects.SUSTAINED_HEALTH_RECOVERY,
-                new PotionEffectProperties(
-                        List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1),
-                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1)
-                        ),
-                        900,
-                        1
-                ), false);
-
-        //max health aka health boost
-        requirements.add(
-                AlchemyMobEffects.MAX_HEALTH,
-                new PotionEffectProperties(
-                        List.of(
-                                new TraitRequirement(TraitGroups.VITALITY, 1),
-                                new TraitRequirement(TraitGroups.PERSISTENCE, 1)
-                        ),
-                        900,
-                        1
-                ), false);
-
-        //poison aka poison
-        requirements.add(
-                AlchemyMobEffects.POISON,
-                new PotionEffectProperties(
-                        List.of(
-                                new TraitRequirement(TraitGroups.TOXICITY, 1),
-                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1)
-                        ),
-                        900,
-                        1
-                ), false);
-
-        //disease damage aka instant damage but tagged as poison damage
-        requirements.add(
-                AlchemyMobEffects.DISEASE_DAMAGE,
-                new PotionEffectProperties(
-                        List.of(
-                                new TraitRequirement(TraitGroups.TOXICITY, 1)
-                        ),
-                        900,
-                        1
-                ), false);
 
     }
 }

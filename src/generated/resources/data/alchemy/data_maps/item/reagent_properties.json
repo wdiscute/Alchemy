@@ -257,6 +257,16 @@
         "alchemy:major_toxicity",
         "alchemy:major_harm"
       ]
+    },
+    "minecraft:wither_skeleton_skull": {
+      "dilute": 1,
+      "temperature": 1,
+      "traits": [
+        "alchemy:major_decay",
+        "alchemy:major_harm",
+        "alchemy:radiance",
+        "alchemy:major_scorch"
+      ]
     }
   }
 }

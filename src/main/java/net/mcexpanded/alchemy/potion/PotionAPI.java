@@ -36,7 +36,7 @@ public class PotionAPI
         //get list of available traits + level from reagents
         List<Pair<String, Integer>> availableTraits = getAvailableTraits(reagent1, reagent2, reagent3);
 
-        List<Pair<PotionEffectProperties, Holder<MobEffect>>> matchingEffects = new ArrayList<>();
+        List<PotionData> matchingEffects = new ArrayList<>();
 
         //for every mob effect
         BuiltInRegistries.MOB_EFFECT.forEach(me ->
@@ -52,25 +52,33 @@ public class PotionAPI
                         o -> availableTraits.stream().anyMatch(
                                 t -> t.getFirst().equals(o.group()) && t.getSecond() >= o.level())))
                 {
-                    matchingEffects.add(Pair.of(potionEffectProperties, BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me)));
+                    int amp = 0;
+
+                    //for each req that amplifies based on level
+                    for (TraitRequirement req : effectRequirements.stream().filter(TraitRequirement::higherLevelsAmplifyEffect).toList())
+                    {
+                        //for each trait that matches the req group (should always only be 1)
+                        List<Pair<String, Integer>> list = availableTraits.stream().filter(o -> o.getFirst().equals(req.group())).toList();
+
+                        //add the extra levels to the amp
+                        for (Pair<String, Integer> trait : list)
+                            amp += trait.getSecond() - req.level();
+                    }
+
+                    PotionData potionData = new PotionData(
+                            BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me),
+                            potionEffectProperties.duration(),
+                            potionEffectProperties.level() + amp
+                            );
+
+                    matchingEffects.add(potionData);
                 }
             }
         });
 
-
         //if no matching effects, return flask
         if (matchingEffects.isEmpty()) return null;
 
-        //map available effects to potion data
-        List<PotionData> potionData = new ArrayList<>();
-
-        matchingEffects.forEach(
-                e -> potionData.add(
-                        new PotionData(
-                                e.getSecond(),
-                                e.getFirst().duration(),
-                                e.getFirst().level()
-                        )));
 
         //testing
         //potionData.add(new PotionData(MobEffects.HASTE, 1, 1));
@@ -78,7 +86,7 @@ public class PotionAPI
 
 
         ItemStack toReturn = flask.copyWithCount(1);
-        toReturn.set(AlchemyDataComponents.POTION_DATA, potionData);
+        toReturn.set(AlchemyDataComponents.POTION_DATA, matchingEffects);
 
         return toReturn;
     }

@@ -30,6 +30,9 @@ public interface AlchemyMobEffects
     DeferredHolder<MobEffect, MobEffect> POISON =
             register("poison", PoisonDamage::new);
 
+    DeferredHolder<MobEffect, MobEffect> AURA_OF_DECAY =
+            register("aura_of_decay", AuraOfDecay::new);
+
     private static <T extends MobEffect> DeferredHolder<MobEffect, MobEffect> register(String name, Supplier<MobEffect> supplier)
     {
         return MOB_EFFECTS.register(name, supplier);

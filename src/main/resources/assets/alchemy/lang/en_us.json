@@ -113,6 +113,8 @@
   "effect.alchemy.health_recovery" : "Health Recovery",
 
   "effect.alchemy.poison" : "Poison",
-  "effect.alchemy.disease_damage" : "Disease Damage"
+  "effect.alchemy.disease_damage" : "Disease Damage",
+
+  "effect.alchemy.aura_of_decay" : "Aura Of Decay"
 
 }
