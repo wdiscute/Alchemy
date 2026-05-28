@@ -1,13 +1,17 @@
 package net.mcexpanded.alchemy.potion;
 
 import com.mojang.datafixers.util.Pair;
-import net.mcexpanded.alchemy.alchemy.EffectRequirement;
+import net.mcexpanded.alchemy.alchemy.PotionEffectProperties;
+import net.mcexpanded.alchemy.alchemy.TraitRequirement;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
+import net.mcexpanded.alchemy.registry.AlchemyDataAttachments;
 import net.mcexpanded.alchemy.registry.AlchemyDataComponents;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -17,21 +21,30 @@ import java.util.Map;
 
 public class PotionAPI
 {
-    public static ItemStack craftPotion(ItemStack reagent, ItemStack reagent2, ItemStack reagent3, ItemStack flask)
+    public static ItemStack craftPotion(ItemStack reagent1, ItemStack reagent2, ItemStack reagent3, ItemStack flask)
     {
         //if flask already has potion data, return
-        if(flask.has(AlchemyDataComponents.POTION_DATA)) return null;
+        if (flask.has(AlchemyDataComponents.POTION_DATA)) return null;
+        if (reagent2.isEmpty()) return null;
+        if (reagent3.isEmpty()) return null;
+        if (flask.isEmpty()) return null;
+
+        if (reagent1.is(reagent2.getItem())) return null;
+        if (reagent1.is(reagent3.getItem())) return null;
+        if (reagent2.is(reagent3.getItem())) return null;
 
         //get list of available traits + level from reagents
-        List<Pair<String, Integer>> availableTraits = getAvailableTraits(reagent, reagent2, reagent3);
+        List<Pair<String, Integer>> availableTraits = getAvailableTraits(reagent1, reagent2, reagent3);
 
-        List<MobEffect> matchingEffects = new ArrayList<>();
+        List<Pair<PotionEffectProperties, Holder<MobEffect>>> matchingEffects = new ArrayList<>();
 
         //for every mob effect
         BuiltInRegistries.MOB_EFFECT.forEach(me ->
         {
             //if mobEffect has a datamap entry
-            List<EffectRequirement> effectRequirements = AlchemyDataMaps.get(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me));
+            PotionEffectProperties potionEffectProperties = AlchemyDataMaps.get(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me));
+            if (potionEffectProperties == null) return;
+            List<TraitRequirement> effectRequirements = potionEffectProperties.requirements();
             if (effectRequirements != null)
             {
                 //if all requirements from datamap match, add mobEffect to list of matching Effects
@@ -39,30 +52,80 @@ public class PotionAPI
                         o -> availableTraits.stream().anyMatch(
                                 t -> t.getFirst().equals(o.group()) && t.getSecond() >= o.level())))
                 {
-                    matchingEffects.add(me);
-                    System.out.println(me.getDescriptionId());
+                    matchingEffects.add(Pair.of(potionEffectProperties, BuiltInRegistries.MOB_EFFECT.wrapAsHolder(me)));
                 }
             }
         });
 
 
         //if no matching effects, return flask
-        if(matchingEffects.isEmpty()) return null;
+        if (matchingEffects.isEmpty()) return null;
 
         //map available effects to potion data
-        List<PotionData> potionData = new ArrayList<>(matchingEffects.stream().map(
-                e -> new PotionData(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(e), 100, 1)).toList());
+        List<PotionData> potionData = new ArrayList<>();
+
+        matchingEffects.forEach(
+                e -> potionData.add(
+                        new PotionData(
+                                e.getSecond(),
+                                e.getFirst().duration(),
+                                e.getFirst().level()
+                        )));
 
         //testing
-        potionData.add(new PotionData(MobEffects.HASTE, 1, 1));
-        potionData.add(new PotionData(MobEffects.SLOW_FALLING, 1, 1));
-
+        //potionData.add(new PotionData(MobEffects.HASTE, 1, 1));
+        //potionData.add(new PotionData(MobEffects.SLOW_FALLING, 1, 1));
 
 
         ItemStack toReturn = flask.copyWithCount(1);
         toReturn.set(AlchemyDataComponents.POTION_DATA, potionData);
 
         return toReturn;
+    }
+
+    public static void awardTraitKnowledge(ItemStack resultPotion, ItemStack r1, ItemStack r2, ItemStack r3, Player player)
+    {
+        List<PotionData> potionData = AlchemyDataComponents.getOrDefault(resultPotion, AlchemyDataComponents.POTION_DATA, List.of());
+        if (potionData.isEmpty()) return;
+        Map<Item, List<String>> knownTraitsMap = new HashMap<>(player.getData(AlchemyDataAttachments.KNOWN_TRAITS_MAP));
+
+        List<String> knownTraits1 = new ArrayList<>(knownTraitsMap.getOrDefault(r1.getItem(), new ArrayList<>()));
+        List<String> knownTraits2 = new ArrayList<>(knownTraitsMap.getOrDefault(r2.getItem(), new ArrayList<>()));
+        List<String> knownTraits3 = new ArrayList<>(knownTraitsMap.getOrDefault(r3.getItem(), new ArrayList<>()));
+
+        for (PotionData potion : potionData)
+        {
+            List<String> learntTraits = AlchemyDataMaps.get(potion.effect()).requirements().stream().map(TraitRequirement::group).toList();
+
+            List<String> traitsOfReagent1 = AlchemyDataMaps.get(r1).traits().stream().map(o -> o.value().group()).toList();
+            List<String> traitsOfReagent2 = AlchemyDataMaps.get(r2).traits().stream().map(o -> o.value().group()).toList();
+            List<String> traitsOfReagent3 = AlchemyDataMaps.get(r3).traits().stream().map(o -> o.value().group()).toList();
+
+            //for each required trait
+            for (String learntTrait : learntTraits)
+            {
+                //if reg1 contains learnt trait, and it's not already known
+                if (traitsOfReagent1.contains(learntTrait) && !knownTraits1.contains(learntTrait))
+                {
+                    knownTraits1.add(learntTrait);
+                    knownTraitsMap.put(r1.getItem(), knownTraits1);
+                }
+
+                if (traitsOfReagent2.contains(learntTrait) && !knownTraits2.contains(learntTrait))
+                {
+                    knownTraits2.add(learntTrait);
+                    knownTraitsMap.put(r2.getItem(), knownTraits2);
+                }
+
+                if (traitsOfReagent3.contains(learntTrait) && !knownTraits3.contains(learntTrait))
+                {
+                    knownTraits3.add(learntTrait);
+                    knownTraitsMap.put(r3.getItem(), knownTraits3);
+                }
+
+                player.setData(AlchemyDataAttachments.KNOWN_TRAITS_MAP, knownTraitsMap);
+            }
+        }
     }
 
     public static List<Pair<String, Integer>> getAvailableTraits(ItemStack reagent, ItemStack reagent2, ItemStack reagent3)
@@ -126,15 +189,27 @@ public class PotionAPI
         {
             String group = entry.getKey();
             //if group already on map, continue as it can't also be on third reagent
-            if(availableTraits.containsKey(group)) continue;
+            if (availableTraits.containsKey(group)) continue;
 
             //if third reagent contains group, means that first didn't contain it so we must add it to the map
-            if(traits3.containsKey(group))
+            if (traits3.containsKey(group))
                 availableTraits.put(group, Math.min(entry.getValue(), traits3.get(group)));
         }
 
         List<Pair<String, Integer>> toReturn = new ArrayList<>();
         availableTraits.forEach((k, v) -> toReturn.add(Pair.of(k, v)));
         return toReturn;
+    }
+
+    public static void awardEffectKnowledge(ItemStack itemStack, Player player)
+    {
+        List<Holder<MobEffect>> knownEffects = new ArrayList<>(player.getData(AlchemyDataAttachments.KNOWN_EFFECTS));
+
+        for (PotionData potionData : AlchemyDataComponents.getOrDefault(itemStack, AlchemyDataComponents.POTION_DATA, List.of()))
+            if (!knownEffects.contains(potionData.effect()))
+                knownEffects.add(potionData.effect());
+
+        if (!knownEffects.equals(player.getData(AlchemyDataAttachments.KNOWN_EFFECTS)))
+            player.setData(AlchemyDataAttachments.KNOWN_EFFECTS, knownEffects);
     }
 }

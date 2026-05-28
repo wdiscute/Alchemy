@@ -1,13 +1,14 @@
 package net.mcexpanded.alchemy.datagen;
 
 import net.mcexpanded.alchemy.Alchemy;
-import net.mcexpanded.alchemy.alchemy.EffectRequirement;
+import net.mcexpanded.alchemy.alchemy.PotionEffectProperties;
+import net.mcexpanded.alchemy.alchemy.TraitRequirement;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.mcexpanded.alchemy.alchemy.TraitProperties;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
+import net.mcexpanded.alchemy.registry.AlchemyMobEffects;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 
@@ -240,7 +241,6 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 ), false);
 
 
-
         //
         //          ,--.   ,--.
         // ,---.  ,-'  '-. |  ,---.   ,---.  ,--.--.  ,---.
@@ -344,36 +344,65 @@ public class DGAlchemyDataMapsProvider extends DataMapProvider
                 ), false);
 
 
+        var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
 
+        //health recovery aka instant health
+        requirements.add(
+                AlchemyMobEffects.HEALTH_RECOVERY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1)
+                        ),
+                        100,
+                        1
+                ), false);
 
+        //sustained health recovery aka regeneration
+        requirements.add(
+                AlchemyMobEffects.SUSTAINED_HEALTH_RECOVERY,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1)
+                        ),
+                        900,
+                        1
+                ), false);
 
+        //max health aka health boost
+        requirements.add(
+                AlchemyMobEffects.MAX_HEALTH,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.VITALITY, 1),
+                                new TraitRequirement(TraitGroups.PERSISTENCE, 1)
+                        ),
+                        900,
+                        1
+                ), false);
 
+        //poison aka poison
+        requirements.add(
+                AlchemyMobEffects.POISON,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.TOXICITY, 1),
+                                new TraitRequirement(TraitGroups.SUSTAINABILITY, 1)
+                        ),
+                        900,
+                        1
+                ), false);
 
-
-
-        var requirements = this.builder(AlchemyDataMaps.POTION_EFFECT_REQUIREMENTS);
-
-        requirements.add(MobEffects.POISON, List.of(
-                new EffectRequirement(TraitGroups.TOXICITY, 1),
-                new EffectRequirement(TraitGroups.SUSTAINABILITY, 1)
-        ), false);
-
-        requirements.add(MobEffects.INSTANT_HEALTH, List.of(
-                new EffectRequirement(TraitGroups.VITALITY, 1)
-        ), false);
-
-        requirements.add(MobEffects.REGENERATION, List.of(
-                new EffectRequirement(TraitGroups.VITALITY, 1),
-                new EffectRequirement(TraitGroups.SUSTAINABILITY, 1)
-        ), false);
-
-        requirements.add(MobEffects.HEALTH_BOOST, List.of(
-                new EffectRequirement(TraitGroups.VITALITY, 1),
-                new EffectRequirement(TraitGroups.PERSISTENCE, 1)
-        ), false);
-
-
-
+        //disease damage aka instant damage but tagged as poison damage
+        requirements.add(
+                AlchemyMobEffects.DISEASE_DAMAGE,
+                new PotionEffectProperties(
+                        List.of(
+                                new TraitRequirement(TraitGroups.TOXICITY, 1)
+                        ),
+                        900,
+                        1
+                ), false);
 
     }
 }

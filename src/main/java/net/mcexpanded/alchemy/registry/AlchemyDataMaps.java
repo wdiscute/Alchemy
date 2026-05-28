@@ -1,7 +1,8 @@
 package net.mcexpanded.alchemy.registry;
 
 import net.mcexpanded.alchemy.Alchemy;
-import net.mcexpanded.alchemy.alchemy.EffectRequirement;
+import net.mcexpanded.alchemy.alchemy.TraitRequirement;
+import net.mcexpanded.alchemy.alchemy.PotionEffectProperties;
 import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -19,17 +20,22 @@ public interface AlchemyDataMaps
             .synced(ReagentProperties.CODEC, true).build();
 
 
-    DataMapType<MobEffect, List<EffectRequirement>> POTION_EFFECT_REQUIREMENTS = DataMapType.builder(
-                    Alchemy.rl("potion_effect_requirements"), Registries.MOB_EFFECT, EffectRequirement.LIST_CODEC)
-            .synced(EffectRequirement.LIST_CODEC, true).build();
+    DataMapType<MobEffect, PotionEffectProperties> POTION_EFFECT_PROPERTIES = DataMapType.builder(
+                    Alchemy.rl("potion_effect_requirements"), Registries.MOB_EFFECT, PotionEffectProperties.CODEC)
+            .synced(PotionEffectProperties.CODEC, true).build();
 
     static ReagentProperties get(ItemStack stack)
     {
         return stack.typeHolder().getData(REAGENT_PROPERTIES);
     }
 
-    static List<EffectRequirement> get(Holder<MobEffect> mobEffect)
+    static ReagentProperties get(Item stack)
     {
-        return mobEffect.getData(POTION_EFFECT_REQUIREMENTS);
+        return stack.builtInRegistryHolder().getData(REAGENT_PROPERTIES);
+    }
+
+    static PotionEffectProperties get(Holder<MobEffect> mobEffect)
+    {
+        return mobEffect.getData(POTION_EFFECT_PROPERTIES);
     }
 }

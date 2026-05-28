@@ -1,40 +1,66 @@
 {
   "values": {
-    "minecraft:health_boost": [
-      {
-        "group": "vitality",
-        "level": 1
-      },
-      {
-        "group": "persistence",
-        "level": 1
-      }
-    ],
-    "minecraft:instant_health": [
-      {
-        "group": "vitality",
-        "level": 1
-      }
-    ],
-    "minecraft:poison": [
-      {
-        "group": "toxicity",
-        "level": 1
-      },
-      {
-        "group": "sustainability",
-        "level": 1
-      }
-    ],
-    "minecraft:regeneration": [
-      {
-        "group": "vitality",
-        "level": 1
-      },
-      {
-        "group": "sustainability",
-        "level": 1
-      }
-    ]
+    "alchemy:disease_damage": {
+      "duration_in_ticks": 900,
+      "effect_level": 1,
+      "traits_required": [
+        {
+          "group": "toxicity",
+          "level": 1
+        }
+      ]
+    },
+    "alchemy:health_recovery": {
+      "duration_in_ticks": 100,
+      "effect_level": 1,
+      "traits_required": [
+        {
+          "group": "vitality",
+          "level": 1
+        }
+      ]
+    },
+    "alchemy:max_health": {
+      "duration_in_ticks": 900,
+      "effect_level": 1,
+      "traits_required": [
+        {
+          "group": "vitality",
+          "level": 1
+        },
+        {
+          "group": "persistence",
+          "level": 1
+        }
+      ]
+    },
+    "alchemy:poison": {
+      "duration_in_ticks": 900,
+      "effect_level": 1,
+      "traits_required": [
+        {
+          "group": "toxicity",
+          "level": 1
+        },
+        {
+          "group": "sustainability",
+          "level": 1
+        }
+      ]
+    },
+    "alchemy:sustained_health_recovery": {
+      "duration_in_ticks": 900,
+      "effect_level": 1,
+      "traits_required": [
+        {
+          "group": "vitality",
+          "level": 1
+        },
+        {
+          "group": "sustainability",
+          "level": 1
+        }
+      ]
+    }
   }
 }

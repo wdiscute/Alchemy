@@ -1,7 +1,7 @@
 package net.mcexpanded.alchemy.station;
 
-import net.mcexpanded.alchemy.Alchemy;
 import net.mcexpanded.alchemy.potion.PotionAPI;
+import net.mcexpanded.alchemy.registry.AlchemyDataAttachments;
 import net.mcexpanded.alchemy.registry.AlchemyMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -10,8 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import java.util.List;
+import java.util.Map;
 
 public class StationMenu extends AbstractContainerMenu
 {
@@ -62,6 +66,7 @@ public class StationMenu extends AbstractContainerMenu
 
         if (buttonId == 67)
         {
+            Map<Item, List<String>> data = player.getData(AlchemyDataAttachments.KNOWN_TRAITS_MAP);
             ItemStack result = container.getItem(RESULT);
             if(result == null || !result.isEmpty()) return super.clickMenuButton(player, buttonId);
 
@@ -74,6 +79,11 @@ public class StationMenu extends AbstractContainerMenu
 
             if(itemStack != null)
             {
+                PotionAPI.awardTraitKnowledge(itemStack, reagent1, reagent2, reagent3, player);
+                PotionAPI.awardEffectKnowledge(itemStack, player);
+
+                //Map<Item, List<String>> data = player.getData(AlchemyDataAttachments.KNOWN_TRAITS_MAP);
+
                 reagent1.shrink(1);
                 reagent2.shrink(1);
                 reagent3.shrink(1);

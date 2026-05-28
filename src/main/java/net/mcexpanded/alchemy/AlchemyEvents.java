@@ -5,6 +5,7 @@ import net.mcexpanded.alchemy.alchemy.TraitProperties;
 import net.mcexpanded.alchemy.potion.PotionData;
 import net.mcexpanded.alchemy.potion.item.PotionTintItemProperty;
 import net.mcexpanded.alchemy.potion.item.PotionTypeItemProperty;
+import net.mcexpanded.alchemy.registry.AlchemyDataAttachments;
 import net.mcexpanded.alchemy.registry.AlchemyDataComponents;
 import net.mcexpanded.alchemy.registry.AlchemyDataMaps;
 import net.mcexpanded.alchemy.registry.AlchemyMenuTypes;
@@ -13,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -24,6 +26,7 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.List;
+import java.util.Map;
 
 @EventBusSubscriber(modid = Alchemy.MOD_ID)
 public class AlchemyEvents
@@ -40,7 +43,7 @@ public class AlchemyEvents
     public static void registerDataMaps(RegisterDataMapTypesEvent event)
     {
         event.register(AlchemyDataMaps.REAGENT_PROPERTIES);
-        event.register(AlchemyDataMaps.POTION_EFFECT_REQUIREMENTS);
+        event.register(AlchemyDataMaps.POTION_EFFECT_PROPERTIES);
     }
 
     @SubscribeEvent
@@ -69,23 +72,32 @@ public class AlchemyEvents
         ReagentProperties reagentProperties = AlchemyDataMaps.get(stack);
         if (reagentProperties != null)
         {
-
             reagentProperties.traits().forEach(trait ->
                     {
-                        Identifier key = event.getEntity().level().registryAccess().lookupOrThrow(Alchemy.TRAIT_REGISTRY_KEY).getKey(trait.value());
-                        MutableComponent name = Component.translatable("alchemy.trait." + key.toLanguageKey());
-
-                        MutableComponent comp = Component.literal(" -");
-                        comp.append(name);
-
-                        if (shift)
+                        //if known
+                        Map<Item, List<String>> data = event.getEntity().getData(AlchemyDataAttachments.KNOWN_TRAITS_MAP);
+                        if(!AlchemyConfig.HIDE_REAGENT_TRAITS_UNTIL_FOUND.get() || data.getOrDefault(stack.getItem(), List.of()).contains(trait.value().group()))
                         {
-                            comp.append(Component.literal(" ("));
-                            comp.append(Component.translatable("alchemy.group." + trait.value().group()));
-                            comp.append(Component.translatable(" lvl. " + trait.value().level() + ")"));
-                        }
+                            Identifier key = event.getEntity().level().registryAccess().lookupOrThrow(Alchemy.TRAIT_REGISTRY_KEY).getKey(trait.value());
+                            MutableComponent name = Component.translatable("alchemy.trait." + key.toLanguageKey());
 
-                        toolTip.add(1, comp.withStyle(ChatFormatting.DARK_GRAY));
+                            MutableComponent comp = Component.literal(" -");
+                            comp.append(name);
+
+                            if (shift)
+                            {
+                                comp.append(Component.literal(" ("));
+                                comp.append(Component.translatable("alchemy.group." + trait.value().group()));
+                                comp.append(Component.translatable(" lvl. " + trait.value().level() + ")"));
+                            }
+
+                            toolTip.add(1, comp.withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                        else
+                        {
+                            MutableComponent comp = Component.literal(" - ???");
+                            toolTip.add(1, comp.withStyle(ChatFormatting.DARK_GRAY));
+                        }
                     }
             );
 

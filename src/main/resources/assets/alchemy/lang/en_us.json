@@ -100,7 +100,19 @@
 
   "item.alchemy.round_flask" : "Round Flask",
   "item.alchemy.conical_flask" : "Conical Flask",
-  "item.alchemy.cubic_flask" : "Cubic Flask"
+  "item.alchemy.cubic_flask" : "Cubic Flask",
 
+
+
+
+
+
+  "effect.alchemy.max_health" : "Max Health Boost",
+
+  "effect.alchemy.sustained_health_recovery" : "Sustained Health Recovery",
+  "effect.alchemy.health_recovery" : "Health Recovery",
+
+  "effect.alchemy.poison" : "Poison",
+  "effect.alchemy.disease_damage" : "Disease Damage"
 
 }

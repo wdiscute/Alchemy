@@ -66,6 +66,7 @@ public class DGAlchemyModelProvider extends ModelProvider
 
         simpleItem(LIZARD_TAIL);
         simpleItem(FROG_LEG);
+        simpleItem(GUIDE);
     }
 
     public static final ModelTemplate CROSSBOW = createItem("crossbow", TextureSlot.LAYER0);

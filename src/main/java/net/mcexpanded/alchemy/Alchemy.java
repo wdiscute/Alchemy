@@ -1,18 +1,12 @@
 package net.mcexpanded.alchemy;
 
-import com.mojang.datafixers.util.Pair;
-import net.mcexpanded.alchemy.alchemy.EffectRequirement;
-import net.mcexpanded.alchemy.alchemy.ReagentProperties;
 import net.mcexpanded.alchemy.alchemy.TraitProperties;
-import net.mcexpanded.alchemy.datagen.AlchemyDataGenerators;
 import net.mcexpanded.alchemy.registry.*;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -42,5 +36,9 @@ public class Alchemy
         AlchemyBlockEntities.register(modEventBus);
         AlchemyMenuTypes.register(modEventBus);
         AlchemyDataComponents.register(modEventBus);
+        AlchemyMobEffects.register(modEventBus);
+        AlchemyDataAttachments.register(modEventBus);
+
+        modContainer.registerConfig(ModConfig.Type.CLIENT, AlchemyConfig.SPEC_SERVER);
     }
 }
